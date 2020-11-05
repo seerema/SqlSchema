@@ -1,6 +1,5 @@
 drop database seerema;
 create database seerema;
--- grant select, insert, update, delete on seerema.* to seerema@localhost;
 
 use seerema;
 
@@ -23,7 +22,7 @@ create table user (
 create table bfile_category (
 	id int not null auto_increment,
 	name varchar(25) not null unique,
-	is_system char(1) not null default 'N',
+	is_system char(1) default 'N',
 	module_id int not null,
 
 	unique index unq_module_fcat (name, module_id),
@@ -54,7 +53,7 @@ create table binary_file (
 create table field_category(
 	id int not null auto_increment,
 	name varchar(50) not null,
-	is_system char(1) not null default 'N',
+	is_system char(1) default 'N',
 	module_id int not null,
 
 	unique index unq_module_fcat (module_id, name),
@@ -69,7 +68,7 @@ create table field(
 	id int not null auto_increment,
 	name varchar(50) not null,
 	field_category_id int not null,
-	is_system char(1) not null default 'N',
+	is_system char(1) default 'N',
 
 	unique index unq_field_name (field_category_id, name),
 
@@ -118,7 +117,7 @@ create table status (
 	id int auto_increment,
 	name varchar(25) not null,
 	module_id int not null,
-	is_system char(1) not null default 'N',
+	is_system char(1) default 'N',
 
 	unique index unq_status_name (module_id, name),
 
@@ -235,7 +234,7 @@ create table address(
 create table comm_media(
 	id int not null auto_increment,
 	name varchar(25) not null unique,
-	is_system char(1) not null default 'N',
+	is_system char(1) default 'N',
 
 	primary key(id)
 ) ENGINE = InnoDB;
@@ -341,7 +340,7 @@ insert into city(name, region_id) values('Toronto', 9);
 insert into field_category(name, module_id, is_system) values('LL_COMPANY', 0, 'Y');
 insert into field_category(name, module_id, is_system) values('LL_PERSON', 0, 'Y');
 
-insert into field(name, field_category_id, is_system) values('LL_SITE', 1, 'Y');
+insert into field(name, field_category_id, is_system) values('LL_WEB_SITE', 1, 'Y');
 insert into field(name, field_category_id, is_system) values('LL_PHONE', 1, 'Y');
 insert into field(name, field_category_id, is_system) values('LL_EMAIL', 1, 'Y');
 insert into field(name, field_category_id, is_system) values('LL_ADDRESS', 1, 'Y');
@@ -354,8 +353,8 @@ insert into field(name, field_category_id, is_system) values('LL_EMAIL', 2, 'Y')
 insert into field(name, field_category_id, is_system) values('LL_ADDRESS', 2, 'Y');
 insert into field(name, field_category_id, is_system) values('LL_NOTES', 2, 'Y');
 
-insert into bfile_category (name, is_system) values('LL_GENERAL', 'Y');
-insert into bfile_category (name, is_system) values('LL_LOGO', 'Y');
+insert into bfile_category (name, module_id, is_system) values('LL_GENERAL', 0, 'Y');
+insert into bfile_category (name, module_id, is_system) values('LL_LOGO', 0, 'Y');
 
 insert into comm_media(name, is_system) values('LL_EMAIL', 'Y');
 insert into comm_media(name, is_system) values('LL_PHONE_CALL', 'Y');
@@ -391,28 +390,28 @@ insert into field_category(name, module_id, is_system) values('LL_COMPANY', 2, '
 insert into field_category(name, module_id, is_system) values('LL_PERSON', 2, 'Y');
 insert into field_category(name, module_id, is_system) values('LL_OTHER', 2, 'Y');
 
-insert into field(name, field_category_id, is_system) values('LL_SITE', 5, 'Y');
+insert into field(name, field_category_id, is_system) values('LL_WEB_SITE', 5, 'Y');
 insert into field(name, field_category_id, is_system) values('LL_PHONE', 5, 'Y');
 insert into field(name, field_category_id, is_system) values('LL_EMAIL', 5, 'Y');
 insert into field(name, field_category_id, is_system) values('LL_ADDRESS', 5, 'Y');
-insert into field(name, field_category_id, is_system) values('LL_FAX', 5, 'Y');
-insert into field(name, field_category_id, is_system) values('LL_SKYPE_ID', 5, 'Y');
+insert into field(name, field_category_id) values('LL_FAX', 5);
+insert into field(name, field_category_id) values('LL_SKYPE_ID', 5);
 insert into field(name, field_category_id, is_system) values('LL_NOTES', 5, 'Y');
 
 insert into field(name, field_category_id, is_system) values('LL_CELL_PHONE', 6, 'Y');
 insert into field(name, field_category_id, is_system) values('LL_HOME_PHONE', 6, 'Y');
 insert into field(name, field_category_id, is_system) values('LL_EMAIL', 6, 'Y');
 insert into field(name, field_category_id, is_system) values('LL_ADDRESS', 6, 'Y');
-insert into field(name, field_category_id, is_system) values('LL_SKYPE_ID', 6, 'Y');
+insert into field(name, field_category_id) values('LL_SKYPE_ID', 6);
 insert into field(name, field_category_id, is_system) values('LL_NOTES', 6, 'Y');
 
 insert into field(name, field_category_id, is_system) values('LL_PHONE', 7, 'Y');
 insert into field(name, field_category_id, is_system) values('LL_EMAIL', 7, 'Y');
-insert into field(name, field_category_id, is_system) values('LL_SKYPE_ID', 7, 'Y');
+insert into field(name, field_category_id) values('LL_SKYPE_ID', 7);
 insert into field(name, field_category_id, is_system) values('LL_NOTES', 7, 'Y');
 
 -- Custom data
-insert into user(name) values('user');
+insert into user(name) values('user1');
 insert into address(line_1, zip, city_id) values('Here we are', 'ABC123', 1);
 
 -- Example business_info
